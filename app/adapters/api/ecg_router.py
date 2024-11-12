@@ -38,7 +38,6 @@ def get_ecg(
     }
 
 
-# Upload ECG data
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def upload_ecg(ecg_data: ECGRequestSchema,
                ecg_service: ECGService = Depends(get_ecg_service)):
@@ -47,7 +46,7 @@ def upload_ecg(ecg_data: ECGRequestSchema,
     """
     try:
         ecg_id = ecg_service.process(
-            leads=[lead.dict() for lead in ecg_data.leads]
+            leads=[lead.model_dump() for lead in ecg_data.leads]
         )
         return {"ecg_id": ecg_id}
     except Exception as e:
