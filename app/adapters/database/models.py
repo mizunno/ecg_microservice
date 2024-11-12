@@ -5,16 +5,16 @@ from sqlalchemy.orm import relationship, declarative_base
 Base = declarative_base()
 
 
-class ECGModel(Base):
+class ECG(Base):
     __tablename__ = 'ecgs'
 
     id = Column(Integer, primary_key=True, index=True)
     ecg_id = Column(String, unique=True, nullable=False)
     date = Column(DateTime(timezone=False))
-    leads = relationship("LeadModel", back_populates="ecg")
+    leads = relationship("Lead", back_populates="ecg")
 
 
-class LeadModel(Base):
+class Lead(Base):
     __tablename__ = 'leads'
 
     id = Column(Integer, primary_key=True, index=True)
@@ -22,4 +22,5 @@ class LeadModel(Base):
     name = Column(String)
     num_samples = Column(Integer, nullable=True)
     signal = Column(String, nullable=False)
-    ecg = relationship("ECGModel", back_populates="leads")
+    zero_crossings = Column(Integer, nullable=True)
+    ecg = relationship("ECG", back_populates="leads")

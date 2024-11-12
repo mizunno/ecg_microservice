@@ -55,6 +55,32 @@ def test_get_ecg_not_found(mock_ecg_service):
     assert response.json() == {"detail": "ECG not found"}
 
 
+def test_get_ecg_insights_success(mock_ecg_service):
+    # Prepare the ECGService mock response and request data
+    ecg_id = str(uuid4())
+    mock_ecg_service.get.return_value = Mock(
+        ecg_id=ecg_id,
+        date=datetime.now(),
+        leads=[
+            LeadSchema(name="I", signal=[1, -1, 2, -2],
+                       num_samples=4, zero_crossings=3),
+            LeadSchema(name="II", signal=[
+                       3, -3, 4, -4], num_samples=4, zero_crossings=3)
+        ]
+    )
+
+    # Simulate a GET request to the /ecg/{ecg_id} endpoint
+    response = client.get(f"/ecg/{ecg_id}/insights")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["leads"]) == 2
+    assert data["leads"][0]["name"] == "I"
+    assert data["leads"][0]["zero_crossings"] == 3
+    assert data["leads"][1]["name"] == "II"
+    assert data["leads"][1]["zero_crossings"] == 3
+
+
 def test_upload_ecg_success(mock_ecg_service):
     # Prepare the ECGService mock to return an ECG ID
     ecg_id = str(uuid4())
