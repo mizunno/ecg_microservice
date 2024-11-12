@@ -1,12 +1,19 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from datetime import datetime
 
 
-class LeadRequest(BaseModel):
+class LeadSchema(BaseModel):
     name: str
     signal: List[int]
     num_samples: Optional[int] = None
 
 
-class ECGRequest(BaseModel):
-    leads: List[LeadRequest]
+class ECGRequestSchema(BaseModel):
+    leads: List[LeadSchema]
+
+
+class ECGResponseSchema(BaseModel):
+    ecg_id: str
+    date: datetime
+    leads: List[LeadSchema]
