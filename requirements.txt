@@ -2,3 +2,8 @@ pytest==8.3.3
 fastapi[standard]==0.115.4
 sqlalchemy==2.0.36
 pydantic-settings==2.6.1
+passlib[bcrypt]==1.7.4
+black==24.10.0
+flake8==7.1.1
+pytest-cov==6.0.0
+python-multipart
