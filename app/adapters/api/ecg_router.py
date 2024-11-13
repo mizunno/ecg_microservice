@@ -3,7 +3,7 @@ from fastapi.routing import APIRouter
 from adapters.api.schemas import (
     ECGRequestSchema,
     ECGResponseSchema,
-    LeadSchema,
+    LeadResponseSchema,
     ECGInsightResponseSchema,
 )
 from services.ecg_service import ECGService
@@ -43,7 +43,7 @@ def get_ecg(
         "ecg_id": ecg.ecg_id,
         "date": ecg.date,
         "leads": [
-            LeadSchema(
+            LeadResponseSchema(
                 name=lead.name,
                 signal=lead.signal,
                 num_samples=lead.num_samples,

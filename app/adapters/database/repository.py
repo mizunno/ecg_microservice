@@ -74,6 +74,7 @@ class DatabaseUserRepository(UserRepository):
         """
         self.db_session.add(user)
         self.db_session.commit()
+        self.db_session.refresh(user)
 
     def get(self, username: str) -> Optional[User]:
         """

@@ -5,7 +5,7 @@ from datetime import datetime
 from uuid import uuid4
 from base64 import b64encode
 from main import app
-from adapters.api.schemas import ECGRequestSchema, LeadSchema
+from adapters.api.schemas import ECGRequestSchema, LeadRequestSchema, LeadResponseSchema
 from adapters.api.dependencies import get_ecg_service, get_auth_service
 from adapters.database.models import User, UserRole
 
@@ -61,8 +61,8 @@ def test_get_ecg_success(
         date=datetime.now(),
         user_id=mock_user.id,
         leads=[
-            LeadSchema(name="I", signal=[1, -1, 2, -2], num_samples=4),
-            LeadSchema(name="II", signal=[3, -3, 4, -4], num_samples=4),
+            LeadResponseSchema(name="I", signal=[1, -1, 2, -2], num_samples=4),
+            LeadResponseSchema(name="II", signal=[3, -3, 4, -4], num_samples=4),
         ],
     )
 
@@ -113,8 +113,8 @@ def test_upload_ecg_success(
 
     ecg_data = ECGRequestSchema(
         leads=[
-            LeadSchema(name="I", signal=[1, -1, 2, -2], num_samples=4),
-            LeadSchema(name="II", signal=[3, -3, 4, -4], num_samples=4),
+            LeadRequestSchema(name="I", signal=[1, -1, 2, -2], num_samples=4),
+            LeadRequestSchema(name="II", signal=[3, -3, 4, -4], num_samples=4),
         ]
     )
 

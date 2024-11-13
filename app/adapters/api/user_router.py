@@ -14,5 +14,9 @@ def create_user(
     admin: User = Depends(verify_admin),
     auth_service: AuthService = Depends(get_auth_service),
 ):
-    """Only admins can create new users"""
-    return auth_service.create_user(user_data.username, user_data.password)
+    """
+    Only admins can create new users
+    """
+
+    user = auth_service.create_user(user_data.username, user_data.password)
+    return {"message": f"User {user.username} with role {user.role} created successfully"}

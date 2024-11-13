@@ -1,7 +1,7 @@
 from fastapi import Depends, BackgroundTasks, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from sqlalchemy.orm import Session
-from adapters.database.repository import DatabaseECGRepository
+from adapters.database.repository import DatabaseECGRepository, DatabaseUserRepository
 from services.ecg_service import ECGService
 from services.auth_service import AuthService
 from adapters.database.orm import get_db
@@ -19,7 +19,8 @@ def get_ecg_service(
 
 
 def get_auth_service(db: Session = Depends(get_db)) -> AuthService:
-    return AuthService(db)
+    user_repository = DatabaseUserRepository(db)
+    return AuthService(user_repository)
 
 
 def verify_admin(
