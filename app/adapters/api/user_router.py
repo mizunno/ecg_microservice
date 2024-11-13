@@ -19,4 +19,6 @@ def create_user(
     """
 
     user = auth_service.create_user(user_data.username, user_data.password)
-    return {"message": f"User {user.username} with role {user.role} created successfully"}
+    return {
+        "message": f"User {user.username} with role {user.role} created successfully"
+    }

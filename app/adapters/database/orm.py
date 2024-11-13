@@ -17,6 +17,7 @@ def get_db():
     finally:
         db.close()
 
+
 def create_admin_user():
     """
     Create admin user if doesn't exist
@@ -29,16 +30,14 @@ def create_admin_user():
     user_repository = DatabaseUserRepository(db)
     auth_service = AuthService(user_repository)
 
-    try:    
+    try:
         admin_username = config.ADMIN_USERNAME
         admin_password = config.ADMIN_PASSWORD
 
         # Check if admin exists
         if not auth_service.get_user(admin_username):
             auth_service.create_user(
-                username=admin_username,
-                password=admin_password,
-                role=UserRole.ADMIN
+                username=admin_username, password=admin_password, role=UserRole.ADMIN
             )
     except Exception as e:
         print(f"Error creating admin user: {e}")

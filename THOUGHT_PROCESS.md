@@ -54,6 +54,11 @@ The following are potential improvements to the current architecture that would 
 - Implement caching layer for frequently accessed ECGs.
 - Redis could be integrated using the repository pattern with a local or remote cache.
 
+### Config Management
+- Use a configuration management system like `pydantic-settings` to manage configuration. Instead of hardcoding values in the `app/core/config.py` file, we can use environment variables or a configuration file.
+- Reference:
+    - `app/core/config.py`
+
 ### API Documentation
 - Include examples for all endpoints. Although FastAPI automatically generates interactive API documentation, it is always a good idea to include examples.
 
