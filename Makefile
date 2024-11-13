@@ -22,7 +22,6 @@ $(VENV)/bin/activate:
 
 install: $(VENV)/bin/activate
 	. $(VENV)/bin/activate; $(UV) pip install -r requirements.txt
-	. $(VENV)/bin/activate; $(UV) pip install flake8 black pytest-cov
 
 test:
 	$(PYTEST) app/tests/ -v --cov=app
