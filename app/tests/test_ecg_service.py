@@ -5,7 +5,6 @@ from services.ecg_service import ECGService
 
 
 class MockECGRepository(ECGRepository):
-
     """
     Mock implementation of ECG repository that
     stores ECGs in memory
@@ -22,7 +21,6 @@ class MockECGRepository(ECGRepository):
 
 
 class MockBackgroundTask(AbstractBackgroundTask):
-
     """
     Mock implementation of background task
     """
@@ -52,7 +50,7 @@ def test_ecg_service_process(ecg_service):
         {"name": "II", "signal": [-1, 1, 2], "num_samples": 3},
     ]
 
-    ecg_id = ecg_service.process(leads)
+    ecg_id = ecg_service.process(leads, user_id=1)
 
     # We get an instance of the ECG Database model
     ecg = ecg_service.repository.get(ecg_id)
@@ -74,7 +72,7 @@ def test_ecg_service_get(ecg_service):
         {"name": "II", "signal": [-1, 1, 2], "num_samples": 3},
     ]
 
-    ecg_id = ecg_service.process(leads)
+    ecg_id = ecg_service.process(leads, user_id=1)
 
     ecg = ecg_service.get(ecg_id)
 

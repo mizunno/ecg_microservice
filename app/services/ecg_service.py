@@ -1,7 +1,6 @@
 from datetime import datetime
 from typing import List, Dict
 from adapters.database.repository import ECGRepository
-# from adapters.database.ecg_mapper import ECGMapper
 from adapters.database.utils import signal_to_string, string_to_signal
 from adapters.database.models import ECG, Lead
 from adapters.tasks.tasks import AbstractBackgroundTask
@@ -9,13 +8,13 @@ import uuid
 
 
 class ECGService:
-
     """
     Service class for ECG operations
     """
 
-    def __init__(self, repository: ECGRepository,
-                 background_task: AbstractBackgroundTask) -> None:
+    def __init__(
+        self, repository: ECGRepository, background_task: AbstractBackgroundTask
+    ) -> None:
         """
         :param repository: ECG repository instance
         :param background_task: Background task instance to compute insights
@@ -38,10 +37,9 @@ class ECGService:
         if ecg_model is None:
             return None
 
-        # return ECGMapper.to_domain_model(ecg_model)
         return ecg_model
 
-    def process(self, leads: List[Dict]) -> str:
+    def process(self, leads: List[Dict], user_id: int) -> str:
         """
         Save an ECG to the repository
         :param leads: List of lead data
@@ -49,13 +47,18 @@ class ECGService:
 
         # Create Lead instances from incoming lead data
         leads = [
-            Lead(name=lead['name'], signal=signal_to_string(lead['signal']),
-                 num_samples=lead.get('num_samples'))
+            Lead(
+                name=lead["name"],
+                signal=signal_to_string(lead["signal"]),
+                num_samples=lead.get("num_samples"),
+            )
             for lead in leads
         ]
 
         # Create an ECG instance
-        ecg = ECG(ecg_id=uuid.uuid4().hex, date=datetime.now(), leads=leads)
+        ecg = ECG(
+            ecg_id=uuid.uuid4().hex, date=datetime.now(), leads=leads, user_id=user_id
+        )
 
         self.repository.save(ecg)
 

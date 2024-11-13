@@ -27,3 +27,8 @@ class ZeroCrossingSchema(BaseModel):
 
 class ECGInsightResponseSchema(BaseModel):
     leads: List[ZeroCrossingSchema]
+
+
+class UserCreate(BaseModel):
+    username: str
+    password: str

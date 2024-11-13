@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class AbstractBackgroundTask(ABC):
-
     """
     Abstract class for background task processing
     With this class, we can define a common interface
