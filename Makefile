@@ -1,4 +1,4 @@
-.PHONY: help install test lint format clean run docker-build docker-run
+.PHONY: help install test format clean run docker-build docker-run
 
 # Python settings
 PYTHON := python3.10.9
@@ -21,8 +21,8 @@ $(VENV)/bin/activate:
 	$(UV) venv $(VENV)
 
 install: $(VENV)/bin/activate
-	$(UV) pip install -r requirements.txt
-	$(UV) pip install flake8 black pytest-cov
+	. $(VENV)/bin/activate; $(UV) pip install -r requirements.txt
+	. $(VENV)/bin/activate; $(UV) pip install flake8 black pytest-cov
 
 test:
 	$(PYTEST) app/tests/ -v --cov=app

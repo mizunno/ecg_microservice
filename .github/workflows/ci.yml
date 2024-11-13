@@ -20,9 +20,6 @@ jobs:
         
     - name: Install dependencies
       run: pip install -r requirements.txt
-
-    - name: Run formatter
-      run: black app/
       
     - name: Run tests
       run: pytest app/tests/ -v --cov=app
